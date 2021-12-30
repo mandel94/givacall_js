@@ -1,4 +1,4 @@
-# givacall_js
+# givacall_js   ![alt text](https://github.com/mandel94/givacall_js/blob/main/logo_new.jpg)
 
 ## What is it?
 `givacall_js` provides an easy-to-use *interface* for performing basic API calls on JavaScript.
