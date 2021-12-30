@@ -21,7 +21,6 @@ Once the object has been instantiated, the user must set an endpoint. Once the a
 The make a call the user must provide:
 1. a query argument, to retrieve the subset of current endopoint's resources that satisfy it;
 2. a field argument, that is, a JSON object that specifies which attributes of the matching data I want to retrieve. 
-3. 
 Each time a request is made with a `client` object, the current endpoint is appended to the request url.
 
 
