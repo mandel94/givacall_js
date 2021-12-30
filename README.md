@@ -32,4 +32,4 @@ With givacall, you won't need to worry about all the little implementation detai
 `givacall_js` will handle the generation of the proper querystring, and append it to the proper baseURL, depending on the API of the `client` and its current endpoint.
 You won't need to look for the exact path of the endpoint, and if you don't remember which endpoints are exposed by a supported API, you can ask your client instance for the entire list of the endpoints!  
 
-`givacall_js` also provides *validation* when setting a `client` object. For example, if you are trying to set an endpoint that is not exposed by a supported API, `givacall_js` will raise an error and notify you. The idea is to implement further validation features that makes working with a supported API's as easy and relaxed as having a zen experience.    
+`givacall_js` also provides *validation* when setting a `client` object. For example, if you are trying to set an endpoint that is not exposed by a supported API, `givacall_js` will raise an error and notify you. The idea is to implement further validation features that makes working with a supported API as easy and relaxed as having a zen experience.    
