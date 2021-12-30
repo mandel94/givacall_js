@@ -23,8 +23,8 @@ Each time a request is made with a `client` object, the current endpoint is appe
 
 
 ## Why should you use it?
-With givacall, you won't need to worry about all the little implementation details behind calling an API. Once an authentication field has been provided to the `client`, and an endpoint has been set, you'll only need to focus on the query, and nothing else.
+With givacall, you won't need to worry about all the little implementation details behind calling an API. Once an authentication field has been provided to the `client`, and an endpoint has been set, you'll only need to focus on the query, and nothing else.  
 `givacall_js` will handle the generation of the proper querystring, and append it to the proper baseURL, based on the API of the `client` and its current endpoint.
-You don't need to look for the exact path of the endpoint, and if you don't remember which endpoints are exposed by a supported API, you can ask your client instance for the entire list of the endpoints!
-`givacall_js` also provides *validation* when setting a `client` object. If you are trying to set an endpoint that is not exposed by a supported API, `givacall_js` will raise an error and notify you. 
-The idea is to implement further validation features that makes working with one of supported API's as easy and relaxed as a zen experience.  
+You don't need to look for the exact path of the endpoint, and if you don't remember which endpoints are exposed by a supported API, you can ask your client instance for the entire list of the endpoints!  
+`givacall_js` also provides *validation* when setting a `client` object. If you are trying to set an endpoint that is not exposed by a supported API, `givacall_js` will raise an error and notify you.   
+The idea is to implement further validation features that makes working with one of supported API's as easy and relaxed as a zen experience.    
