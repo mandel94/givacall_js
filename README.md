@@ -18,7 +18,7 @@ The idea is to add support for different API's, from a wide array of application
 ## How does it work?
 When instantiating a `client` object, the user must provide the API she/he wants to call.  
 Once the object has been instantiated, the user must set the endpoint. The `Client` class keeps track of all the endpoints exposed by each supported API, in a list that is available for inspection by the user.  
-Once the authentication field has been also provided, the user is ready to make calls!  
+Once the authentication field has been also provided, the user is ready to make calls.
 To make a call the user must provide:
 1. a query argument, to retrieve the subset of current endopoint's resources that satisfy it;
 2. a field argument, that is, a JSON object that specifies which attributes of the matching data to retrieve.  
@@ -33,3 +33,9 @@ With givacall, you won't need to worry about all the little implementation detai
 You won't need to look for the exact path of the endpoint, and if you don't remember which endpoints are exposed by a supported API, you can ask your client instance for the entire list of the endpoints!  
 
 `givacall_js` also provides *validation* when setting a `client` object. For example, if you are trying to set an endpoint that is not exposed by a supported API, `givacall_js` will raise an error and notify you. The idea is to implement further validation features that makes working with a supported API as easy and relaxed as having a zen experience.    
+
+
+# Caveauts
+## Security 
+### Twitter authentication best practices
+https://developer.twitter.com/en/docs/authentication/guides/authentication-best-practices
