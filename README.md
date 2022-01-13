@@ -63,9 +63,9 @@ givacall.endpoint("recent_search")
 
 
 ### Add a security token to the client  
-In order to add a token to the client, the user must provide an object:
-* keys of the object --> the Authorization method (for example, 'Bearer' for bearer authentication)
-* the token --> a hashed string
+In order to add a token to the client, the user must provide two arguments:
+* the Authorization method (for example, 'Bearer' for bearer authentication)
+* the token.
 Example:
 ``` js
 client.addToken('Bearer', process.env.BEARER_TOKEN);
