@@ -41,15 +41,26 @@ Let's look at how you can easily make requests to its endpoints.
 
 ### Define a client
 First of all, let's create an instance of the client.
-Client will take one argument, the name of the api you want to send requests to.  
+If you would like to exploit the potential of givacall, by using one of the API that it supports, you must pass the name of that API to the constructor.
+For example:
 ``` js
 const { Givacall } = require("givacall_js");
 
 const givacall = Givacall("TwitterAPI_v2");
 ```
 
-### Set an endpoint on that client  
-The next step is to tell givacall which endpoint you would like to query.
+However, if you would like to use givacall as a general-purpose API client, you can instantiate it without providing the API name:
+
+``` js
+const { Givacall } = require("givacall_js");
+
+const givacall = Givacall();
+```
+
+### Set an endpoint on the client
+
+**1: If you are using one the API's being supported**  
+In this case, the next step is to tell givacall which endpoint you would like to query.
 If you dont' remember which endpoints are exposed by the current api, you can ask givacall:
 ``` js
 givacall.endpointsLookup()
@@ -58,25 +69,49 @@ givacall.endpointsLookup()
 Now, you should be ready to set the endpoint. For example:
 
 ```js
+// Set the 'recent_search' endpoint of the "TwitterAPI_v2" API
 givacall.endpoint("recent_search")
 ```
+Each request will have its url authomatically pre-appended with the base url of the endpoint currentyl set on the API. 
+
+**2. If you are using a general-purpose API client instead**    
+In this case you should first provide the path of the endpoint you will send requests to, that is, the base url to pre-appended each time you will interrogate that endpoint.
+In order to add an endpoint path, you will need to use the `customEndpoint` method on givacall's client. This method takes two arguments:
+- the path (base url) of the endpoint;
+- the name of the endpoint.
+```js
+givacall.customEndpoint(baseURL, customEndpointName);
+```
+
+Once the custom endpoint has been created, you can set it on the client, in a similar fashion to point 1.
+```js
+// Set the 'recent_search' endpoint of the "TwitterAPI_v2" API
+givacall.endpoint(customEndpointName)
+```
 
 
-### Add a security token to the client  
-In order to add a token to the client, the user must provide two arguments:
-* the Authorization method (for example, 'Bearer' for bearer authentication)
-* the token.
+### Set authentication on the client  
+The user must pass on the client all information for authenticating a requests.
+To do so, you can use on the helper methods of givacall, depending an the specific authentication implementation of the api. 
+
 Example:
 ``` js
-client.addToken('Bearer', process.env.BEARER_TOKEN);
-client.addToken('Basic', process.env.BASIC_TOKEN);
+givacall.addBearer(process.env.BEARER_TOKEN);
+givacall.addBasic(process.env.BASIC_CREDENTIALS);
 ```
-These key-value pairs will be added to the `securityBox` of givacall's client. 
-When sending requests to an endpoint, givacall's client will provide the token corresponding to the authentication method required by that particular endpoint, extracted by key from the `securityBox`.   
+Each method will add the authentication info to the so-called `securityBox` of givacall's client. 
+When sending requests to an endpoint, givacall's client will provide the information corresponding to the authentication method required by that particular endpoint, extracted by key from the `securityBox`.   
+This means that once you have added a credential for a particular endpoint to the security box, your authentication worries are covered for each time you will interrogate that endpoint. You cannot add more than one value per authentication type at the same time. 
 
 ### Make your requests
-Now everything is set and done! Givacall is ready to help you with all the requests you'd like to do. You can do it easily by using its methods, each one 
-corresponding to a particular HTTP methods.
+Everything is set and done! Givacall is ready to help you with all the requests you'd like to do. You can do it easily by using its methods, each one 
+corresponding to a particular HTTP methods. 
+You must only provide two arguments:
+* query
+* fields 
+Each request will have its url authomatically pre-appended with the base url of the endpoint currentyl set on the API. 
+
+
 ``` js
 givacall.get(query, fields);
 \\...
