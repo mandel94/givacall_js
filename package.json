@@ -1,7 +1,7 @@
 {
   "name": "givacall_js",
   "version": "1.0.0",
-  "main": "axios_playground.js",
+  "main": "modules/api_client.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "doc": "jsdoc -c jsdoc.json"
@@ -11,7 +11,6 @@
   "dependencies": {
     "axios": "^0.24.0"
   },
-  "devDependencies": {},
   "keywords": [],
   "description": ""
 }

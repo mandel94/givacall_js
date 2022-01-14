@@ -1,8 +1,16 @@
 const axios = require("axios");
-const { dictionaryOfEndpoints } = require("./endpoints");
-const authMethods = require("./authMethods");
-const {getBaseUrl, getUrl} = require("./url_utils");
-
+const {
+    dictionaryOfEndpoints
+} = require("./endpoints");
+const { authMethods } = require("./authentication");
+const {
+    getEndpointUrl,
+    getUrl
+} = require("./url_utils");
+const {
+    basicAuthImp,
+    bearerTokenImp
+} = require("./authentication");
 
 // TODO Create client class 
 
@@ -33,17 +41,25 @@ class Client {
         };
     };
 
-
     /**
      * Create a client. 
-     * @param {string} api - The name of the api. Supported api's are:
+     * @param {String} api - (Optional) The name of the api. Supported api's are:
      *  - TwitterAPI_v2
      *  - ecc...
+     * If you prefer a general-purpose API client, you can instantiate it  
+     * without providing an api name. 
+     * In this case, each time you make HTTP requests with the client, you 'll
+     * have to manually set the configuration of your request, including the 
+     * 'Authorization' header. 
+     *  
+     * 
+     * 
      */
-    constructor(api) {
+    constructor(api = null) {
         this.api = api;
+        this.general_purpose = this.api ? false : true;
+        this.authenticationBox = {};
     }
-
 
     /**
      * Take a look on available endpoints for `this.api`
@@ -56,6 +72,7 @@ class Client {
         return this.endpoints_list
     }
 
+    //Getters
 
     /**
      * Get the endpoint 
@@ -68,21 +85,6 @@ class Client {
         return this._endpoint;
     }
 
-
-    /** Set the endpoint 
-     * @param {string} endpoint - The endpoint to send requests to.
-     */
-    set endpoint(name) {
-        let list = this.endpointsLookup;
-        // TODO
-        // validate_endpoint(name)
-        // Validation of user input
-        // Raise error if the name of the API is not found in the endpoints list
-        this._endpoint = name;
-        return this._endpoint;
-    }
-    
-
     /**
      * Get the authentication method for the active endpoint.
      * 
@@ -94,7 +96,60 @@ class Client {
         return this._authMethod
     }
 
-    // HTTP Methods
+    //Setters
+
+    /** Set the endpoint 
+     * @param {string} endpoint - The endpoint to send requests to.
+     *  
+     * @return {string} Set endpoint is returned  
+     */
+    set endpoint(name) {
+        // TODO
+        // validate_endpoint(name)
+        // Validation of user input
+        // Raise error if the name of the API is not found in the endpoints list
+        this._endpoint = name;
+        return this._endpoint;
+    }
+
+    //Methods
+    
+    /**
+     * Create a custom endpoint
+     * 
+     * This is useful when using givacall as a general-purpose client.
+     * Each time you'll interrogate the custom endpoint, the specified endpoint
+     * URL we'll be automatically pre-appended to the request url. 
+     * 
+     * @param {string} endpointUrl - The URL of the custom endpoint 
+     * @param {string} endpointName - The name of the custom endpoint, for referencing 
+     * when setting the endpoint on the client 
+     * @param {string} authMethod - The authentication method implemented by the 
+     * endpoint (for example, 'Bearer'). 
+     */
+    customEndpoint(endpointUrl, endpointName, authMethod) {
+        this.addressBook = {};
+        this.addressBook[endpointName] = [endpointUrl, authMethod];
+    }
+
+    /**
+     * Add a bearer token to the authenticationBox of the client
+     * @param {token} token - The bearer token that the client will present for 
+     * authenticating the request
+     */
+    addBearer(token) {
+        this.authenticationBox['Bearer'] = bearerTokenImp(token);
+    }
+
+    /**
+     * Add basic credentials to the authenticationBox of the client
+     * @param {string} credentials 
+     */
+    addBasic(credentials) {
+        this.authenticationBox['Basic'] = basicAuthImp(credentials);
+    }
+
+    //HTTP Methods
 
     /**
      * Send a Get Request 
@@ -112,21 +167,48 @@ class Client {
      * @param {Array} fields - Parameters to select which attributes you want 
      *  the response to return in its data.
      * @param {Object} config - Every further configuration setting that can be 
-     * accepted by an Axios request. 
+     * accepted by an Axios request. Authentication configs passed through this 
+     * object will be overwritten by the default authentication method of the api
+     * that's currently active on the client instance. 
+     * @param {Boolean} keepDefaultAuth - If true, eventual authentication the user 
+     * passed in the `config` argument will overwrite the defaults for the api
+     * that's currently active on the client instance. 
+     * 
+     * 
      * 
      * @return {Promise} A Promise to receive a response object
      */
-
-    get(query, fields, config) {
-        const baseUrl = getBaseUrl(this.api, this.endpoint)
-        const url = getUrl(baseUrl, query, fields)
-        const headers = getHeaders(this.authMethod)
-        // TODO set config
-            // TODO Set `headers`
-            // TODO Set further defaults, if any more
-    //    axios.get(url, ...Args);
+    get(query, fields, config = {}) {
+        // Define getRequest function
+        const getRequest = async () => {
+            axios.get(url, this.config)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        };
+        if (this.general_purpose) {
+            const endpointUrl = this.addressBook[this.endpoint][0];
+            const url = getUrl(endpointUrl, query, fields);
+            const authMethod = this.addressBook[this.endpoint][1];
+            config['Authorization'] = this.authenticationBox[this.authMethod];
+            // Remember get request configuration
+            this.getConfig = config;
+            // TODO Call getRequest() as a function of url and config
+            return(getRequest());
+        }
+        //else
+        const endpointUrl = getEndpointUrl(this.api, this.endpoint);
+        const url = getUrl(endpointUrl, query, fields);
+        config['Authorization'] = this.authenticationBox[this.authMethod];
+        // Remember get request configuration
+        this.getConfig = config;
+        //TODO Call getRequest() as a function of url and config
+        return (getRequest());
     };
 
 }
 
-exports.Client = Client
+module.exports = Client;

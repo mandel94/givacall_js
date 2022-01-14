@@ -1,7 +1,6 @@
 const {getEndpointPath} = require("./endpoints");
 
 
-
 /**
  * @description This is the root URL you'll need to know for accessing the 
  * resources exposed by a certain API. You'll need to attach an endpoint and a 
@@ -9,7 +8,7 @@ const {getEndpointPath} = require("./endpoints");
  * 
  * @const {Object}
  */
-const dictionaryOfRootUrls = {
+const dictionaryOfBaseUrls = {
     "TwitterAPI_v2": "https://api.twitter.com/2"
 }
 
@@ -42,12 +41,10 @@ const dictionaryOfRootUrls = {
 
 
 /**
- * Get a Base URL
+ * Get a Endpoint URL
  * 
- * Build and return a base URL by simply concatenating the root URL associated
- * to the specific API with an endpoint whose resources you want to access. 
- * You'll need to attach a querystring to this base URL, if you want to perform 
- * a successful request.
+ * Build and return the URL of the endpoint by simply concatenating the base URL 
+ * associated to a specific API to the path of the endpoint. 
  * 
  * @param {string} api - The name of the API 
  * @param {string} endpoint - The endpoint whose resources you'd like to access
@@ -55,13 +52,15 @@ const dictionaryOfRootUrls = {
  * @return {string} A base URL 
  *  
  */
-function getBaseUrl(api, endpoint) {
+function getEndpointUrl(api, endpoint) {
     const endpointPath =  getEndpointPath(api, endpoint)
-    return dictionaryOfRootUrls[api] + endpointPath
+    return dictionaryOfBaseUrls[api] + endpointPath
 }
 
 /**
  * Create a query string
+ * 
+ * 
  * @param {string} query - The query parameter of the url. The API will use this
  * parameter for filtering the data to include in the response. This parameter 
  * can be specific to the API being requested.
@@ -73,5 +72,5 @@ function getQueryString(fields) {
 
 
 module.exports.getUrl = getUrl;
-module.exports.getBaseUrl = getBaseUrl
+module.exports.getEndpointUrl = getEndpointUrl;
 
