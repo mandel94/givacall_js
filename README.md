@@ -86,7 +86,7 @@ Each time you create a custom endpoint, it will be added to an address book, for
 
 ```js
 console.log(givacall.addressBook);
-\\ A JSON object keeping track of all custom endpoints previously created with a givacall client. 
+// A JSON object keeping track of all custom endpoints previously created with a givacall client. 
 ```
 
 Once the custom endpoint has been created, you can set it on the client, in a similar fashion to point 1.
