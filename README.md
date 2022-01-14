@@ -79,8 +79,9 @@ In this case you should first provide the path of the endpoint you will send req
 In order to add an endpoint path, you will need to use the `customEndpoint` method on givacall's client. This method takes two arguments:
 - the path (base url) of the endpoint;
 - the name of the endpoint.
+- The authentication method implemented by the endpoint (for example, 'Bearer'). 
 ```js
-givacall.customEndpoint(baseURL, customEndpointName);
+givacall.customEndpoint(baseURL, customEndpointName, authMethod);
 ```
 Each time you create a custom endpoint, it will be added to an address book, for future referencing:
 
