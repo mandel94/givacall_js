@@ -82,6 +82,12 @@ In order to add an endpoint path, you will need to use the `customEndpoint` meth
 ```js
 givacall.customEndpoint(baseURL, customEndpointName);
 ```
+Each time you create a custom endpoint, it will be added to an address book, for future referencing:
+
+```js
+console.log(givacall.addressBook);
+\\ A JSON object keeping track of all custom endpoints previously created with a givacall client. 
+```
 
 Once the custom endpoint has been created, you can set it on the client, in a similar fashion to point 1.
 ```js
