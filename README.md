@@ -72,16 +72,16 @@ Now, you should be ready to set the endpoint. For example:
 // Set the 'recent_search' endpoint of the "TwitterAPI_v2" API
 givacall.endpoint("recent_search")
 ```
-Each request will have its url authomatically pre-appended with the base url of the endpoint currentyl set on the API. 
+Each request will have its url authomatically pre-appended with the url of the endpoint currentyl set on the API. 
 
 **2. If you are using a general-purpose API client instead**    
-In this case you should first provide the path of the endpoint you will send requests to, that is, the base url to pre-appended each time you will interrogate that endpoint.
+In this case you should first provide the path of the endpoint you will send requests to, that is, the endpoint url to pre-append each time you will interrogate that endpoint.
 In order to add an endpoint path, you will need to use the `customEndpoint` method on givacall's client. This method takes two arguments:
-- the path (base url) of the endpoint;
+- the url of the endpoint;
 - the name of the endpoint.
 - The authentication method implemented by the endpoint (for example, 'Bearer'). 
 ```js
-givacall.customEndpoint(baseURL, customEndpointName, authMethod);
+givacall.customEndpoint(endpointUrl, customEndpointName, authMethod);
 ```
 Each time you create a custom endpoint, it will be added to an address book, for future referencing:
 
