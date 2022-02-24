@@ -34,9 +34,9 @@
 <p>A Client is a software that acts like an agent between a user and a server
 whose resources the user wants to access.
 By establishing a connection with a server, a client can request resources
-exposed by the server through endpoints. Each endpoint serves a distinct
+exposed by the server through endpoints, each one serving a distinct
 logical section of the resources.<br>
-In order to establish a connection to the server, a client must first get
+In order to establish a connection with the server, a client must first be
 granted an authorization by the server.
 Supported authentication methods are:</p>
 <ul>
@@ -90,6 +90,8 @@ Supported authentication methods are:</p>
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -106,7 +108,7 @@ Supported authentication methods are:</p>
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">String</span>
 
 
             
@@ -115,11 +117,22 @@ Supported authentication methods are:</p>
             
 
             
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
 
-            <td class="description last"><p>The name of the api. Supported api's are:</p>
+            <td class="description last"><p>(Optional) The name of the api. Supported api's are:</p>
 <ul>
 <li>TwitterAPI_v2</li>
-<li>ecc...</li>
+<li>ecc...
+If you prefer a general-purpose API client, you can instantiate it<br>
+without providing an api name.
+In this case, each time you make HTTP requests with the client, you 'll
+have to manually set the configuration of your request, including the
+'Authorization' header.</li>
 </ul></td>
         </tr>
 
@@ -161,7 +174,7 @@ Supported authentication methods are:</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line26">line 26</a>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -207,6 +220,258 @@ Supported authentication methods are:</p>
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="authMethod"><span class="type-signature"></span>authMethod<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Get the authentication method for the active endpoint.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line94">line 94</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="endpoint"><span class="type-signature"></span>endpoint<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Get the endpoint</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="endpoint"><span class="type-signature"></span>endpoint<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Set the endpoint</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="endpointsLookup"><span class="type-signature"></span>endpointsLookup<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Take a look on available endpoints for <code>this.api</code></p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -217,7 +482,7 @@ Supported authentication methods are:</p>
     
 
     
-    <h4 class="name" id="setEndpoint"><span class="type-signature"></span>setEndpoint<span class="signature">(endpoint)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addBasic"><span class="type-signature"></span>addBasic<span class="signature">(credentials)</span><span class="type-signature"></span></h4>
     
 
     
@@ -225,7 +490,7 @@ Supported authentication methods are:</p>
 
 
 <div class="description">
-    <p>Set an endpoint</p>
+    <p>Add basic credentials to the authenticationBox of the client</p>
 </div>
 
 
@@ -261,7 +526,7 @@ Supported authentication methods are:</p>
 
         <tr>
             
-                <td class="name"><code>endpoint</code></td>
+                <td class="name"><code>credentials</code></td>
             
 
             <td class="type">
@@ -277,7 +542,7 @@ Supported authentication methods are:</p>
 
             
 
-            <td class="description last"><p>The endpoint to send requests to.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -318,7 +583,7 @@ Supported authentication methods are:</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line65">line 65</a>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line148">line 148</a>
     </li></ul></dd>
     
 
@@ -349,6 +614,580 @@ Supported authentication methods are:</p>
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="addBearer"><span class="type-signature"></span>addBearer<span class="signature">(token)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Add a bearer token to the authenticationBox of the client</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">token</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The bearer token that the client will present for
+authenticating the request</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line140">line 140</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="customEndpoint"><span class="type-signature"></span>customEndpoint<span class="signature">(endpointUrl, endpointName, authMethod)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Create a custom endpoint</p>
+<p>This is useful when using givacall as a general-purpose client.
+Each time you'll interrogate the custom endpoint, the specified endpoint
+URL we'll be automatically pre-appended to the request url.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>endpointUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The URL of the custom endpoint</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endpointName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the custom endpoint, for referencing
+when setting the endpoint on the client</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>authMethod</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The authentication method implemented by the
+endpoint (for example, 'Bearer').</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(query, fields, config, keepDefaultAuth)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Send a Get Request
+This is a wrapper for the axios() function.
+It provides the following utilities:</p>
+<ul>
+<li><code>url</code> is customized according to the current endpoint of <code>this</code> client</li>
+<li><code>headers</code> is customized to include
+<ul>
+<li>the <code>Authorization</code> header currently set on <code>this</code> client.</li>
+<li>// further defaults to be included.</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>query</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The query parameter of the url. The API will use
+this parameter for filtering the data to include in the response.
+This parameter can be specific to the API being requested.
+Queries are made up of operators that match on a variety of attributes.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fields</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Parameters to select which attributes you want
+the response to return in its data.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Every further configuration setting that can be
+accepted by an Axios request. Authentication configs passed through this
+object will be overwritten by the default authentication method of the api
+that's currently active on the client instance.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>keepDefaultAuth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>If true, eventual authentication the user
+passed in the <code>config</code> argument will overwrite the defaults for the api
+that's currently active on the client instance.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="api_client.js.html">api_client.js</a>, <a href="api_client.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A Promise to receive a response object</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -364,13 +1203,13 @@ Supported authentication methods are:</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Client.html">Client</a></li></ul><h3>Global</h3><ul><li><a href="global.html#header">header</a></li><li><a href="global.html#queryString">queryString</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Client.html">Client</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AuthMethods">AuthMethods</a></li><li><a href="global.html#basicAuthImp">basicAuthImp</a></li><li><a href="global.html#bearerTokenImp">bearerTokenImp</a></li><li><a href="global.html#dictionaryOfBaseUrls">dictionaryOfBaseUrls</a></li><li><a href="global.html#dictionaryOfEndpoints">dictionaryOfEndpoints</a></li><li><a href="global.html#dictionaryOfEndpointsPaths">dictionaryOfEndpointsPaths</a></li><li><a href="global.html#getEndpointPath">getEndpointPath</a></li><li><a href="global.html#getEndpointUrl">getEndpointUrl</a></li><li><a href="global.html#getQueryString">getQueryString</a></li><li><a href="global.html#getUrl">getUrl</a></li><li><a href="global.html#twitterEndpoints">twitterEndpoints</a></li><li><a href="global.html#twitterEndpointsPaths">twitterEndpointsPaths</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Dec 23 2021 18:36:11 GMT+0100 (Ora standard dell’Europa centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Jan 14 2022 19:46:40 GMT+0100 (Ora standard dell’Europa centrale)
 </footer>
 
 <script> prettyPrint(); </script>

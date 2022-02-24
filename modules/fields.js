@@ -1,0 +1,1 @@
+// Lookup file that defines fields available at each endpoint

@@ -29,14 +29,14 @@ const {
  *
  * 
  */
-class Client {
+class Givacall {
     static #endpoints;
     static #authMethods;
 
     static {
         // Static Initialization Block
-        Client.#endpoints = dictionaryOfEndpoints;
-        Client.#authMethods = {
+        Givacall.#endpoints = dictionaryOfEndpoints;
+        Givacall.#authMethods = {
             'recent_search': 'Bearer'
         };
     };
@@ -59,6 +59,7 @@ class Client {
         this.api = api;
         this.general_purpose = this.api ? false : true;
         this.authenticationBox = {};
+        this.isUrlSet = false;
     }
 
     /**
@@ -68,7 +69,7 @@ class Client {
      */
     get endpointsLookup() {
         // Dynamic property
-        this.endpoints_list = Client.#endpoints[this.api];
+        this.endpoints_list = Givacall.#endpoints[this.api];
         return this.endpoints_list
     }
 
@@ -92,7 +93,7 @@ class Client {
      * endpoint, NULL if no endpoint has been set yet 
      */
     get authMethod() {
-        this._authMethod = Client.#authMethods[this.endpoint]
+        this._authMethod = Givacall.#authMethods[this.endpoint]
         return this._authMethod
     }
 
@@ -149,10 +150,19 @@ class Client {
         this.authenticationBox['Basic'] = basicAuthImp(credentials);
     }
 
+    // Manually set the url
+    setUrl(url) {
+        // Flag that the url is manually set
+        this.isUrlSet = true;
+        this.url = url;
+    }
+
+
     //HTTP Methods
 
     /**
      * Send a Get Request 
+     * 
      * This is a wrapper for the axios() function.
      * It provides the following utilities:
      *  - `url` is customized according to the current endpoint of `this` client 
@@ -180,35 +190,42 @@ class Client {
      */
     get(query, fields, config = {}) {
         // Define getRequest function
-        const getRequest = async () => {
-            axios.get(url, this.config)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        };
+        const getRequest = function(url, config) {
+            return new Promise(function(resolve, reject) {
+                 axios.get(url, config)
+                     .then(function(result) {
+                           resolve(result);
+                     })
+                      .catch(function(error) {
+                            reject(error);
+                      })
+                 })
+               };
+
         if (this.general_purpose) {
             const endpointUrl = this.addressBook[this.endpoint][0];
             const url = getUrl(endpointUrl, query, fields);
             const authMethod = this.addressBook[this.endpoint][1];
-            config['Authorization'] = this.authenticationBox[this.authMethod];
+            config['headers'] = {
+                'Authorization': this.authenticationBox[this.authMethod]
+            };
             // Remember get request configuration
-            this.getConfig = config;
+            this.GETconfig = config;
             // TODO Call getRequest() as a function of url and config
             return(getRequest());
         }
         //else
         const endpointUrl = getEndpointUrl(this.api, this.endpoint);
         const url = getUrl(endpointUrl, query, fields);
-        config['Authorization'] = this.authenticationBox[this.authMethod];
+        config['headers'] = {
+            'Authorization': this.authenticationBox[this.authMethod]
+        };
         // Remember get request configuration
-        this.getConfig = config;
+        this.GETconfig = config;
         //TODO Call getRequest() as a function of url and config
-        return (getRequest());
+        return (getRequest(url, this.GETconfig));
     };
 
 }
 
-module.exports = Client;
+module.exports = Givacall;

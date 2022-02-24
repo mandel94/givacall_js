@@ -34,9 +34,14 @@ const dictionaryOfBaseUrls = {
  */
 
  function getUrl(baseUrl, query, fields) {
-    fields.query = query;
-    const queryString = getQueryString(fields);
-    return baseUrl+"/"+queryString
+    // Initialize all_fields with query 
+    const all_fields = {'query': query};
+    // Complete all_fields
+    for (k in fields) {
+        all_fields[k] = fields[k];
+    };
+    const queryString = getQueryString(all_fields);
+    return baseUrl+"?"+queryString
 }
 
 
