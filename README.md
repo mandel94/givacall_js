@@ -44,17 +44,17 @@ First of all, let's create an instance of the client.
 If you would like to exploit the potential of givacall, by using one of the API that it supports, you must pass the name of that API to the constructor.
 For example:
 ``` js
-const { Givacall } = require("givacall_js");
+const Givacall = require("givacall_js");
 
-const givacall = Givacall("TwitterAPI_v2");
+const givacall = new Givacall("TwitterAPI_v2");
 ```
 
 However, if you would like to use givacall as a general-purpose API client, you can instantiate it without providing the API name:
 
 ``` js
-const { Givacall } = require("givacall_js");
+const Givacall = require("givacall_js");
 
-const givacall = Givacall();
+const givacall = new Givacall();
 ```
 
 ### Set an endpoint on the client
@@ -70,7 +70,7 @@ Now, you should be ready to set the endpoint. For example:
 
 ```js
 // Set the 'recent_search' endpoint of the "TwitterAPI_v2" API
-givacall.endpoint("recent_search")
+givacall.endpoint = "recent_search";
 ```
 Each request will have its url authomatically pre-appended with the url of the endpoint currentyl set on the API. 
 
